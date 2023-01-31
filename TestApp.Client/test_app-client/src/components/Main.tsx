@@ -1,4 +1,4 @@
-import { Container, Typography } from "@mui/material"
+import { Button, Container, Typography } from "@mui/material"
 import React, { useContext, useState, useEffect } from "react"
 import TestDescriptionModal from "./TestDescriptionModal";
 import List from '@mui/material/List';
@@ -31,30 +31,29 @@ const Main = () => {
         }
     }, [])
     return (
-        <Container maxWidth="sm">
+        <Container sx={{ marginTop: "10px" }} maxWidth="sm">
             <TestDescriptionModal open={open} handleClose={() => setOpen(false)} name={name} description={description} id={id} onProceed={() => { context.testStore.GetTestQuestions(id) }} />
 
-            <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+            <List sx={{ width: '100%', maxWidth: 500, bgcolor: 'background.paper' }}>
                 {
                     context.testStore.Tests.map((t, i) => <ListItem
                         key={i}
-                        secondaryAction={
-                            <Typography variant="subtitle1" gutterBottom>
-                                {t.isCompleted ? `Result: ${t.result}` : "Not Completed"}
-                            </Typography>
-                        }
+                    // secondaryAction={
+
+
+                    // }
                     >
-                        <ListItemButton disabled={t.isCompleted} role={undefined} onClick={() => { openModal(t.name, t.description, t.id) }} dense>
+                        <ListItemButton onClick={() => !t.isCompleted ? openModal(t.name, t.description, t.id) : context.testStore.selectTest(t.id)} dense>
                             <ListItemText id={t.id} primary={t.name} />
-                            <ListItemIcon>
-                                <Checkbox
-                                    edge="start"
-                                    checked={t.isCompleted}
-                                    tabIndex={-1}
-                                    disableRipple
-                                />
-                            </ListItemIcon>
+                            {
+                                t.isCompleted ? <Typography variant="subtitle1" gutterBottom>
+                                    Result: {t.result}
+                                </Typography> : <Button>
+                                    Start
+                                </Button>
+                            }
                         </ListItemButton>
+
                     </ListItem>)
                 }
             </List>

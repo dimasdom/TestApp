@@ -4,6 +4,7 @@ import Header from './components/Header'
 import Login from './components/Login'
 import Test from './components/Test'
 import Main from './components/Main'
+import Result from './components/Result';
 
 function App() {
   const location = useLocation();
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/test" element={<Test />} />
+        <Route path="/result" element={<Result />} />
       </Routes>
     </div>
   );

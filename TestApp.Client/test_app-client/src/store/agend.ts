@@ -1,4 +1,5 @@
 import { Result } from "./models/Result";
+import { testResultDTO } from "./models/testResultDTO";
 import { loginDTO } from "./models/loginDTO";
 import {test} from "./models/test"
 import { testCompleteDto } from "./models/testCompleteDTO";
@@ -22,7 +23,7 @@ class Agend{
         })
         .then((response)=>response.json())
     }
-    public CompleteTest=async(testComplete:testCompleteDto):Promise<Result>=>{
+    public CompleteTest=async(testComplete:testCompleteDto):Promise<Result<testResultDTO>>=>{
         return fetch("https://localhost:7120/api/Test/Complete",this.FetchBody("POST",{Authorization:`Bearer ${Agend.token}`},testComplete))
         .then((response)=>response.json())
     }

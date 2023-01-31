@@ -7,7 +7,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
-import { Box, Button, Container } from '@mui/material';
+import { Box, Button, Container, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const Test = () => {
@@ -21,8 +21,10 @@ const Test = () => {
     }, [])
     return (
         <Container maxWidth="sm">
-            {context.testStore.CurrentTestQuestion?.description}
-            <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+            <Typography align='center' variant="h2" gutterBottom>
+                {context.testStore.CurrentTestQuestion?.description}
+            </Typography>
+            <List sx={{ width: '100%', maxWidth: 500, bgcolor: 'background.paper' }}>
                 {
                     context.testStore.CurrentTestQuestion?.options.map((o, i) =>
                         <ListItem
@@ -46,8 +48,12 @@ const Test = () => {
 
             </List>
             <Box sx={{ display: "flex", justifyContent: "end" }}>
-                <Button onClick={() => {
-                    context.testStore.AnswerQuestion(checked)
+                <Button disabled={checked.length === 0} onClick={() => {
+                    if (checked.length > 0) {
+                        context.testStore.AnswerQuestion(checked);
+                        setChecked("");
+                    }
+
                 }}>{
                         context.testStore.CTQIndex === context.testStore.CurrentTestQuestions.length - 1 ? "Complete" :
                             "Next"}</Button>
